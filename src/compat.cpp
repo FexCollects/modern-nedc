@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "portable.h"
+#include "compat.h"
 
 int fopen_s(FILE ** f, char *name, char *spec)
 {

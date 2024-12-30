@@ -1,41 +1,14 @@
-
-
-#include "stdafx.h"
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <malloc.h>
 #include <string.h>
 
-#include "../nedclib/nedclib.h"
+//#include "../nedclib/nedclib.h"
+#include "../../src/compat.h"
+#include "../../src/shim.h"
 
-
-// If compiling on VS 2005, comment out fopen_s and vsprintf_s completely.
-// It was easier to rewrite these fuctions rather than rewrite the code
-// to be compilable on older VS versions.
-
-//int fopen_s(FILE ** f, char *name, char *spec)
-//{
-//	if(f==NULL)
-//		return 1;
-//	*f=fopen(name,spec);
-//	if(*f==NULL)
-//		return 1;
-//	else
-//		return 0;
-//	
-//}
-//
-//int vsprintf_s(char *string, int sizeinbytes, const char *format, va_list ap)
-//{
-//	
-//	vsprintf(string,format,ap);
-//	return 0;
-//}
-
-//////////////////////////////////////////////////////////////////////
-
-
+#include "constants.h"
 
 void usage(void)
 {
@@ -72,7 +45,8 @@ int main(int argc, char* argv[])
 	unsigned long bitsize = 0xFFFFFFFF;
 
 	printf("Nintendo e-Reader VPK Tool Version %d.%d\n",NEVPK_MAJOR,NEVPK_MINOR);
-	printf("Copyright CaitSith2\n\n");
+	printf("Copyright CaitSith2\n");
+	printf("Ported by FexCollects\n\n");
 	nedclib_version();
 
 	if(argc==1)
@@ -163,10 +137,10 @@ int main(int argc, char* argv[])
 		if(!_stricmp(argv[i],"-log"))
 		{
 			i++;
-			if(fopen_s(&log,argv[i],"w")!=0)
+			if(fopen_s(&ne_log,argv[i],"w")!=0)
 			{
 				printf("Failed to open log file\n");
-				log=NULL;
+				ne_log=NULL;
 			}
 		}
 
@@ -283,7 +257,7 @@ int main(int argc, char* argv[])
 							best_move = b_move;
 							best_size = l - 65536;
 						}*/
-						printf("Filesize: %d, lzwindow: %d, lzsize: %d          ",((bitsize==0xFFFFFFFF)?0:bitsize/8),k,j);
+						printf("Filesize: %ld, lzwindow: %d, lzsize: %d          ",((bitsize==0xFFFFFFFF)?0:bitsize/8),k,j);
 						printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
 						printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
 						printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
@@ -333,7 +307,7 @@ int main(int argc, char* argv[])
 			{
 				for(k=1;k<lzsize;k+=2)
 				{
-					printf("Filesize: %d, %d, %d                                     ",((bitsize==0xFFFFFFFF)?0:bitsize/8),(lzwindow-1-j),(lzsize-1-k));
+					printf("Filesize: %ld, %d, %d                                     ",((bitsize==0xFFFFFFFF)?0:bitsize/8),(lzwindow-1-j),(lzsize-1-k));
 							printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
 							printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
 							printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
@@ -394,8 +368,8 @@ int main(int argc, char* argv[])
 		i=vpk_decompress(vpk_buf,f);
 	}
 	fclose(f);
-	if(log!=NULL)
-		fclose(log);
+	if(ne_log!=NULL)
+		fclose(ne_log);
 
 	j=i;
 

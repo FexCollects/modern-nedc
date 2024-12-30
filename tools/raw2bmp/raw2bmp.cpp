@@ -6,6 +6,8 @@
 #include "../../src/compat.h"
 #include "../../src/shim.h"
 
+#include "constants.h"
+
 int InFileList[256],OutFileList[256];
 
 void usage (void)
