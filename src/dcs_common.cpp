@@ -1,10 +1,4 @@
-
-#include <stdio.h>
-
-#ifndef DCS
-#define DCS
-
-
+#include "dcs_common.h"
 
 unsigned short dotcodelen;
 unsigned short bmplen;
@@ -126,40 +120,3 @@ unsigned short addressbar[2][29] = { {
 
 },
 };*/
-
-#endif
-
-extern unsigned short dotcodelen;
-extern unsigned short bmplen;
-
-//extern int dpi_multiplier;
-
-extern unsigned long addr[2];
-extern unsigned char raw[28][104];
-extern unsigned char dcsbmp[7912][352];
-extern unsigned char _810mod[28][130];
-extern unsigned char bmpheader1[];
-extern unsigned char bmpheader2[];
-extern unsigned char bmpdata[352][992];
-//extern unsigned char bmpdata1[44][0x7C];
-//extern unsigned char bmpdata2[44][80];
-extern unsigned char modtable[];
-extern unsigned char demodtable[32];
-//extern unsigned short addressbar[2][29];
-
-extern int bmp_invert;
-
-void clear_dcs(void);
-void eight_ten_modulate(void);
-void init_dcs(void);
-void flipbmp(void);
-void makebmp(void);
-void make_dcs(void);
-
-void eight_ten_demodulate(void);
-void reversebmp(void);
-void reverse_dcs(void);
-int read_bmp(FILE *f);
-
-int correct_address(unsigned long *addr_data);
-void calc_addr(int address);

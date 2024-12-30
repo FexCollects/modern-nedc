@@ -1,9 +1,7 @@
-#include "stdafx.h"
 #include <stdio.h>
-#define DCS
-#include "dcs.h"
 
-#include "../nedclib.h"
+#include "dcs_common.h"
+#include "dcs_address.h"
 
 void eight_ten_modulate(void)
 {
@@ -36,8 +34,8 @@ void eight_ten_modulate(void)
 	}
 }
 
-NEDCLIB_API int dpi_multiplier = 1;
-NEDCLIB_API int smooth = 0;
+int dpi_multiplier = 1;
+int smooth = 0;
 int fill=0;
 
 void draw_dcs_pixel(int x, int y)

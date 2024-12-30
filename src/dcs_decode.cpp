@@ -1,11 +1,7 @@
-#include "stdafx.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-#define DCS
-#include "dcs.h"
-
-#include "../nedclib.h"
+#include "dcs_common.h"
 
 unsigned char mod0,mod1,mod2,mod3,mod4,mod5,mod6,mod7;
 

@@ -3,7 +3,7 @@
 #include <string.h>
 
 #include "../../src/compat.h"
-#include "../../src/shim.h"
+#include "../../src/rawbmp.h"
 
 #include "constants.h"
 
