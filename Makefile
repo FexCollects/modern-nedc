@@ -62,4 +62,4 @@ build/nes.o: src/nes.cpp src/nes.h
 	g++ -o $@ -c $<
 
 clean:
-	rm -f build/*.o bin/nevpk bin/raw2bmp
+	rm -f build/*.o bin/nevpk bin/raw2bmp bin/nedcenc bin/nedcmake
