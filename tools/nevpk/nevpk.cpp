@@ -47,7 +47,6 @@ int main(int argc, char* argv[])
 	printf("Nintendo e-Reader VPK Tool Version %d.%d\n",NEVPK_MAJOR,NEVPK_MINOR);
 	printf("Copyright CaitSith2\n");
 	printf("Ported by FexCollects\n\n");
-	nedclib_version();
 
 	if(argc==1)
 	{

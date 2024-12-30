@@ -17,3 +17,6 @@ build/shim.o: src/shim.cpp src/shim.h
 
 build/compat.o: src/compat.cpp src/compat.h
 	g++ -o build/compat.o -c src/compat.cpp
+
+clean:
+	rm -f build/*.o bin/nevpk bin/raw2bmp

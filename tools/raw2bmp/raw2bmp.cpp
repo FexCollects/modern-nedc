@@ -32,7 +32,6 @@ int main(int argc, char* argv[])
 	printf("Nintendo e-Reader dotcode strip tool Version %d.%d\n",RAW2BMP_MAJOR,RAW2BMP_MINOR);
 	printf("Copyrighted by CaitSith2\n");
 	printf("Ported by FexCollects\n\n");
-	nedclib_version();
 
 	for (i=1;i<argc;i++)
 	{
