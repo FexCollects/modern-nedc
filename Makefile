@@ -1,9 +1,9 @@
 all: bin/nevpk bin/raw2bmp
 
-bin/nevpk: build/nevpk.o build/shim.o build/compat.o
-	g++ -o bin/nevpk build/nevpk.o build/shim.o build/compat.o
+bin/nevpk: build/nevpk.o build/shim.o build/compat.o build/log.o
+	g++ -o bin/nevpk build/nevpk.o build/shim.o build/compat.o build/log.o
 
-build/nevpk.o: tools/nevpk/nevpk.cpp tools/nevpk/constants.h src/compat.h src/shim.h
+build/nevpk.o: tools/nevpk/nevpk.cpp tools/nevpk/constants.h src/compat.h src/shim.h src/log.h
 	g++ -o build/nevpk.o -c tools/nevpk/nevpk.cpp
 
 bin/raw2bmp: build/raw2bmp.o build/shim.o build/compat.o
@@ -17,6 +17,9 @@ build/shim.o: src/shim.cpp src/shim.h
 
 build/compat.o: src/compat.cpp src/compat.h
 	g++ -o build/compat.o -c src/compat.cpp
+
+build/log.o: src/log.cpp src/log.h src/compat.h
+	g++ -o build/log.o -c src/log.cpp
 
 clean:
 	rm -f build/*.o bin/nevpk bin/raw2bmp

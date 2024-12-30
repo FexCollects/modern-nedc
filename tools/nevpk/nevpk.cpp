@@ -7,6 +7,7 @@
 //#include "../nedclib/nedclib.h"
 #include "../../src/compat.h"
 #include "../../src/shim.h"
+#include "../../src/log.h"
 
 #include "constants.h"
 
