@@ -1,43 +1,13 @@
-
-#include "stdafx.h"
-
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <malloc.h>
 #include <string.h>
 
-#include "../nedclib.h"
-
-NEDCLIB_API FILE *log;
-NEDCLIB_API int verbose=0;
+#include "vpk.h"
+#include "log.h"
 
 unsigned char *bitstore=NULL;
-
-#define MAX_LOG_STR 256
-void log_only_write(char* str, ...)
-{
-	char tmpstr[MAX_LOG_STR];
-	va_list args;
-	va_start(args,str);
-	vsprintf_s(tmpstr,MAX_LOG_STR-1,str,args);
-	va_end(args);
-	if(log!=NULL)
-		fprintf(log,tmpstr);
-}
-
-NEDCLIB_API void log_write(char* str, ...)
-{
-	char tmpstr[MAX_LOG_STR];
-	va_list args;
-	va_start(args,str);
-	vsprintf_s(tmpstr,MAX_LOG_STR-1,str,args);
-	va_end(args);
-	if(verbose==1)
-		printf(tmpstr);
-	if(log!=NULL)
-		fprintf(log,tmpstr);
-}
 
 struct tree_node {
 	int node;
@@ -72,7 +42,7 @@ int bitsleft_r = 0;
 unsigned long bits_w=0;
 unsigned long bits_r=0;
 
-NEDCLIB_API unsigned long bits_written=0;
+unsigned long bits_written=0;
 
 
 int bits_buf=0;
@@ -324,10 +294,10 @@ void write_huffman_tree(tree_node *tree, FILE *f,  int root=1)
 	
 }
 
-NEDCLIB_API int best_move=0;
-NEDCLIB_API int best_size=0;
+int best_move=0;
+int best_size=0;
 
-NEDCLIB_API int skip_huffman=0;
+int skip_huffman=0;
 int skip_size=0;
 
 tree_node* create_huffman_tree(unsigned short *buf, int count, FILE *f, int method=0, int type=0)
@@ -639,9 +609,9 @@ tree_node* read_huffman_tree(unsigned char *buf)
 #define MAX_TABLE_SIZE 0x10000
 #define MAX_LITERALS 0x10000
 
-NEDCLIB_API int skip_lz77 = 0;
+int skip_lz77 = 0;
 
-NEDCLIB_API int NVPK_compress (unsigned char *buf, int size, int compression_level, int lzwindow, int lzsize, int method, FILE *f, unsigned char *bitdata)
+int NVPK_compress (unsigned char *buf, int size, int compression_level, int lzwindow, int lzsize, int method, FILE *f, unsigned char *bitdata)
 {	
 	static unsigned short literals[MAX_LITERALS], move_t[MAX_TABLE_SIZE], size_t[MAX_TABLE_SIZE];
 	int literals_offset=0,move_offset=0,size_offset=0;
@@ -1057,7 +1027,7 @@ int read_tree_value(tree_node *tree, unsigned char *buf)
 	}
 }
 
-NEDCLIB_API int vpk_decompress (unsigned char *vpk, FILE *f)
+int vpk_decompress (unsigned char *vpk, FILE *f)
 {
 	int bitcountsmove[32] = {
 		0, 0, 0, 0, 0, 0, 0, 0,

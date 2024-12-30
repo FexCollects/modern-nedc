@@ -4,10 +4,9 @@
 #include <malloc.h>
 #include <string.h>
 
-//#include "../nedclib/nedclib.h"
 #include "../../src/compat.h"
-#include "../../src/shim.h"
 #include "../../src/log.h"
+#include "../../src/vpk.h"
 
 #include "constants.h"
 
