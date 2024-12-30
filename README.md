@@ -7,7 +7,11 @@ This code like the base source is released under GPL2.
 ## Tools to port
 
 - [ ] nedcenc
-- [ ] nedclib (This is a DLL on windows, I think it should be parted out)
-- [ ] nedcmake
-- [ ] nevpk
-- [ ] raw2bmp 
+  - [x] Builds on linux 
+  - [ ] Doesn't crash
+- [ ] nedclib 
+  - [x] Parted out 
+  - [ ] Cleaned up/fully deleted 
+- [x] nedcmake
+- [x] nevpk
+- [x] raw2bmp 
