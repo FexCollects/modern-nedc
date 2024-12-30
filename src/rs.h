@@ -1,3 +1,4 @@
+#include <stddef.h>
 //unsigned char pp [mm+1] = { 1,1,0,0,0,0,1,1,1} ; /* specify irreducible polynomial coeffts */
 //unsigned char alpha_to [nn+1], index_of [nn+1], gg [nn-kk+1] ;
 //unsigned char recd [nn], data [kk], bb [nn-kk] ;

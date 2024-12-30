@@ -1,11 +1,8 @@
-// nedcenc.cpp : Defines the entry point for the console application.
-//
-
-#include "stdafx.h"
 #include <stdio.h>
 
-#include "../nedclib/nedclib.h"
+#include "constants.h"
 
+#include "../../src/binraw.h"
 
 int main(int argc, char* argv[])
 {
@@ -15,8 +12,8 @@ int main(int argc, char* argv[])
 	int infile=0,outfile=0;
 
 	printf("Nintendo eReader Dotcode encoder/decoder v%d.%d\n",NEDCENC_MAJOR,NEDCENC_MINOR);
-	printf("Copyright 2007 CaitSith2\n\n");
-	nedclib_version();
+	printf("Copyright 2007 CaitSith2\n");
+	printf("Ported by FexCollects\n\n");
 
 	if(argc<3)
 	{
