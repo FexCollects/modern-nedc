@@ -1,11 +1,10 @@
-// raw2bmp.cpp : Defines the entry point for the console application.
-//
-
-#include "stdafx.h"
-#include "../nedclib/nedclib.h"
+//#include "../nedclib/nedclib.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "../../src/compat.h"
+#include "../../src/shim.h"
 
 int InFileList[256],OutFileList[256];
 
@@ -29,7 +28,8 @@ int main(int argc, char* argv[])
 	int OptR=0;
 
 	printf("Nintendo e-Reader dotcode strip tool Version %d.%d\n",RAW2BMP_MAJOR,RAW2BMP_MINOR);
-	printf("Copyrighted by CaitSith2\n\n");
+	printf("Copyrighted by CaitSith2\n");
+	printf("Ported by FexCollects\n\n");
 	nedclib_version();
 
 	for (i=1;i<argc;i++)
