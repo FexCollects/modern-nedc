@@ -382,7 +382,8 @@ void process_title(char *str, int titlenum, int cardmode, int region, int store_
 int main(int argc, char* argv[])
 {
 	int i,j,k;
-	FILE *f;
+	FILE *input = NULL;
+	FILE *output = NULL;
 	int region=REGION_US;
 	int apptype=-1;
 	int cardsize=0x81C;
@@ -604,19 +605,17 @@ int main(int argc, char* argv[])
 	}
 
 	
-	//f=fopen(argv[filename],"rb");
-	//if(f==NULL)
-	if(fopen_s(&f,argv[filename],"rb"))
+	if(fopen_s(&input,argv[filename],"rb"))
 	{
 		printf("Error: VPK file could not be opened for reading\n");
 		//Could not open vpk file
 		return 1;
 	}
-	fseek(f,0,SEEK_END);
-	filesize=ftell(f);
-	fseek(f,0,SEEK_SET);
-	fread(bindata,1,4,f);
-	fseek(f,0,SEEK_SET);
+	fseek(input,0,SEEK_END);
+	filesize=ftell(input);
+	fseek(input,0,SEEK_SET);
+	fread(bindata,1,4,input);
+	fseek(input,0,SEEK_SET);
 
 	if(!is_vpk(bindata))
 	{
@@ -625,7 +624,7 @@ int main(int argc, char* argv[])
 		{
 			if(is_nes(bindata))
 			{
-				fread(bindata,1,filesize,f);
+				fread(bindata,1,filesize,input);
 				make_nes(bindata);
 				filesize-=16;
 				for(i=0;i<filesize;i++)
@@ -638,18 +637,18 @@ int main(int argc, char* argv[])
 	{
 		if(apptype==APPTYPE_GBA)
 		{
-			fread(vpkdata+6,1,filesize,f);
+			fread(vpkdata+6,1,filesize,input);
 			memcpy(vpkdata,&filesize,4);
 			memset(vpkdata+4,0,2);
 			filesize+=6;
 		}
 		else if (apptype==APPTYPE_RAW)
 		{
-			fread(vpkdata,1,filesize,f);
+			fread(vpkdata,1,filesize,input);
 		}
 		else
 		{
-			fread(vpkdata+2,1,filesize,f);
+			fread(vpkdata+2,1,filesize,input);
 			memcpy(vpkdata,&filesize,2);
 			filesize+=2;
 		}
@@ -658,9 +657,7 @@ int main(int argc, char* argv[])
 	{
 		if(apptype==APPTYPE_GBA)
 		{
-			//NEDCLIB_API int NVPK_compress (unsigned char *buf, int size, int compression_level, int lzwindow, int lzsize, int method, FILE *f, unsigned char *bitdata=NULL);
-
-			fread(bindata,1,filesize,f);
+			fread(bindata,1,filesize,input);
 			filesize=NVPK_compress(bindata,filesize,2,16384,2048,0,NULL,&vpkdata[6]);
 			memcpy(vpkdata,&filesize,4);
 			memset(vpkdata+4,0,2);
@@ -668,7 +665,7 @@ int main(int argc, char* argv[])
 		}
 		else
 		{
-			fread(bindata,1,filesize,f);
+			fread(bindata,1,filesize,input);
 			filesize=NVPK_compress(bindata,filesize,2,16384,2048,0,NULL,&vpkdata[2]);
 			memcpy(vpkdata,&filesize,2);
 			filesize+=2;
@@ -693,7 +690,7 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	fclose(f);
+	fclose(input);
 	
 	if(region!=0)
 	{
@@ -796,15 +793,15 @@ int main(int argc, char* argv[])
 				sprintf_s(fn,255,"%s.%.2d.bin",argv[basename],i);
 			else
 				sprintf_s(fn,255,"%.2d.bin",i);
-			if(fopen_s(&f,fn,"wb"))
+			if(fopen_s(&output,fn,"wb"))
 			{
 				printf("Unable to create Dotcode set\n");
 				return 1;
 			}
 			printf(", bin");
+		        fwrite(carddata,1,cardsize,output);
+                        fclose(output);
 		}
-		fwrite(carddata,1,cardsize,f);
-		fclose(f);
 		if(raw)
 		{
 			if(basename)
@@ -838,13 +835,7 @@ int main(int argc, char* argv[])
 			printf(", bmp");
 		}
 		printf(" - Success\n");
-
-
-
-
 	}
-
-
 
 	return 0;
 }
