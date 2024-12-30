@@ -1,4 +1,4 @@
-all: bin/nevpk bin/raw2bmp bin/nedcenc
+all: bin/nevpk bin/raw2bmp bin/nedcenc bin/nedcmake
 
 bin/nevpk: build/nevpk.o build/compat.o build/log.o build/vpk.o
 	g++ -o $@ $^
@@ -9,6 +9,9 @@ bin/raw2bmp: build/raw2bmp.o build/rawbmp.o build/raw2dcs.o build/compat.o build
 bin/nedcenc: build/nedcenc.o build/binraw.o build/rawbmp.o build/compat.o build/dcs_encode.o build/dcs_decode.o build/dcs_address.o build/dcs_common.o build/rs.o
 	g++ -o $@ $^
 
+bin/nedcmake: build/nedcmake.o build/compat.o build/binraw.o build/nes.o build/dcs_common.o build/vpk.o build/rawbmp.o build/dcs_encode.o build/dcs_decode.o build/dcs_address.o build/rs.o build/log.o
+	g++ -o $@ $^
+
 build/nevpk.o: tools/nevpk/main.cpp tools/nevpk/constants.h src/compat.h src/log.h src/vpk.h
 	g++ -o $@ -c $<
 
@@ -16,6 +19,9 @@ build/raw2bmp.o: tools/raw2bmp/main.cpp tools/raw2bmp/constants.h src/compat.h s
 	g++ -o $@ -c $<
 
 build/nedcenc.o: tools/nedcenc/main.cpp tools/nedcenc/constants.h src/binraw.h
+	g++ -o $@ -c $<
+
+build/nedcmake.o: tools/nedcmake/main.cpp tools/nedcmake/constants.h src/compat.h src/dcs_common.h src/vpk.h src/binraw.h src/rawbmp.h src/nes.h
 	g++ -o $@ -c $<
 
 build/compat.o: src/compat.cpp src/compat.h
@@ -50,6 +56,9 @@ build/binraw.o: src/binraw.cpp src/binraw.h src/rs.h src/compat.h src/rawbmp.h s
 	g++ -o $@ -c $<
 
 build/rs.o: src/rs.cpp src/rs.h
+	g++ -o $@ -c $<
+
+build/nes.o: src/nes.cpp src/nes.h
 	g++ -o $@ -c $<
 
 clean:

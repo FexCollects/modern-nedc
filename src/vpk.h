@@ -8,3 +8,4 @@ extern int skip_lz77;
 
 int NVPK_compress (unsigned char *buf, int size, int compression_level, int lzwindow, int lzsize, int method, FILE *f, unsigned char *bitdata=NULL);
 int vpk_decompress (unsigned char *vpk, FILE *f);
+int is_vpk(unsigned char *bindata);

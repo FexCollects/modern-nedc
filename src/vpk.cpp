@@ -1197,3 +1197,10 @@ int vpk_decompress (unsigned char *vpk, FILE *f)
 
 	return 0;
 }
+
+int is_vpk(unsigned char *bindata)
+{
+	if((bindata[0]!='v')||(bindata[1]!='p')||(bindata[2]!='k')||(bindata[3]!='0'))
+		return 0;
+	return 1;
+}

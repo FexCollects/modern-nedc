@@ -7,3 +7,4 @@ extern int smooth;
 int bmp2raw(char *bmpfile, char *rawfile);
 int is_bmp(char *bmpfile);
 int raw2bmp(char *rawfile, char *bmpfile); 
+int raw2bmp_f(unsigned char *rawdata, char *bmpfile);

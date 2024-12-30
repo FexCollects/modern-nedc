@@ -1,12 +1,14 @@
-// necmaker.cpp : Defines the entry point for the console application.
-//
-#include "stdafx.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "../nedclib/nedclib.h"
+#include "../../src/compat.h"
+#include "../../src/dcs_common.h"
+#include "../../src/vpk.h"
+#include "../../src/nes.h"
+#include "../../src/binraw.h"
+#include "../../src/rawbmp.h"
+#include "constants.h"
 
 unsigned char carddata[0x81C];
 unsigned char rawdata[0xB60];
@@ -408,8 +410,8 @@ int main(int argc, char* argv[])
 			title[i][j]=0;
 
 	printf("Nintendo E-Reader Dotcode bin maker tool Version %d.%d\n",NEDCMAKE_MAJOR,NEDCMAKE_MINOR);
-	printf("Copyright CaitSith2\n\n");
-	nedclib_version();
+	printf("Copyright CaitSith2\n");
+	printf("Ported by FexCollects\n\n");
 
 	for(i=1;i<argc;i++)
 	{
